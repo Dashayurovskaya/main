@@ -337,6 +337,56 @@ class Histogram(Estimation):
   #  interval Интервал.
 
 
+## Определяем класс LaplaceRandomVariable(RandomVariable).
+# Класс для вычисления функции распределения Лапласа.
+class LaplaceRandomVariable(RandomVariable):
+  ##  Инициализируем атрибуты объекта класса.
+  #  @param self Указатель на объект.
+  #  @param location Параметр сдвига
+  #  @param scale Параметр масштаба
+  def __init__(self, location=0, scale=1):
+    self.location = location
+    self.scale = scale
+
+  ## Вычисление плотности вероятности для функции распределения Лапласа.
+  #  @param self Указатель на объект.
+  #  @param x Значение случайной величины.
+  def pdf(self, x):
+    return 0.5 * self.scale * math.exp(-self.scale * abs(x - self.location))
+
+  ##  Вычисление интегральной функции распределния для функции распределения Лапласа.
+  #  @param self Указатель на объект.
+  #  @param x Значение случайной величины.
+  def cdf(self, x):
+    if x < self.location:
+      return 0.5 * math.exp((x - self.location) / self.scale)
+    else:
+      return 1 - 0.5 * math.exp(-(x - self.location) / self.scale)
+
+  ##  Вечисление квантиля уровня alpha для функции распределения Лапласа.
+  #  @param self Указатель на объект.
+  #  @param alpha Уровень квантеля.
+  def quantile(self, alpha):
+    if alpha == 0.5:
+      return self.location
+    elif alpha < 0.5:
+      return self.location - self.scale * math.log1p(-2 * alpha)
+    else:
+      return self.location + self.scale * math.log1p(2 * alpha - 1)
+
+      ## @var location
+      #  Параметр сдвига
+
+      ## @var scale
+      #  Параметр масштаба
+
+      ## @var x
+      #  Значение случайной величины.
+
+      ## @var alpha
+      #  Уровень квантеля.
+
+
 ## Определяем класс UniformRandomVariable(RandomVariable).
 # Класс для вычисления равномерной функции распределения.
 class UniformRandomVariable(RandomVariable):
@@ -388,54 +438,7 @@ class UniformRandomVariable(RandomVariable):
   #  Уровень квантеля.
 
 
-## Определяем класс LaplaceRandomVariable(RandomVariable).
-# Класс для вычисления функции распределения Лапласа.
-class LaplaceRandomVariable(RandomVariable):
-  ##  Инициализируем атрибуты объекта класса.
-  #  @param self Указатель на объект.
-  #  @param location Параметр сдвига
-  #  @param scale Параметр масштаба
-  def __init__(self, location=0, scale=1):
-    self.location = location
-    self.scale = scale
 
-  ## Вычисление плотности вероятности для функции распределения Лапласа.
-  #  @param self Указатель на объект.
-  #  @param x Значение случайной величины.
-  def pdf(self, x):
-    return 0.5 * self.scale * math.exp(-self.scale * abs(x - self.location))
-
-  ##  Вычисление интегральной функции распределния для функции распределения Лапласа.
-  #  @param self Указатель на объект.
-  #  @param x Значение случайной величины.
-  def cdf(self, x):
-    if x < self.location:
-      return 0.5 * math.exp((x - self.location) / self.scale)
-    else:
-      return 1 - 0.5 * math.exp(-(x - self.location) / self.scale)
-
-  ##  Вечисление квантиля уровня alpha для функции распределения Лапласа.
-  #  @param self Указатель на объект.
-  #  @param alpha Уровень квантеля.
-  def quantile(self, alpha):
-    if alpha == 0.5:
-      return self.location
-    elif alpha < 0.5:
-      return self.location - self.scale * math.log1p(-2 * alpha)
-    else:
-      return self.location + self.scale * math.log1p(2 * alpha - 1)
-
-      ## @var location
-      #  Параметр сдвига
-
-      ## @var scale
-      #  Параметр масштаба
-
-      ## @var x
-      #  Значение случайной величины.
-
-      ## @var alpha
-      #  Уровень квантеля.
 
 
 
