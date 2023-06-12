@@ -18,6 +18,14 @@ class RandomVariable(ABC):
   def pdf(self, x):
     pass
 
+  ## Абстрактный метод quantile.
+  #  Вычисление квантиля уровня alpha.
+  #  @param self Указатель на объект.
+  #  @param alpha Уровень квантеля.
+  @abstractmethod
+  def quantile(self, alpha):
+    pass
+
   ## Абстрактный метод cdf.
   #  Вычисление интегральной функции распределения.
   #  @param self Указатель на объект.
@@ -26,13 +34,6 @@ class RandomVariable(ABC):
   def cdf(self, x):
     pass
 
-  ## Абстрактный метод quantile.
-  #  Вычисление квантиля уровня alpha.
-  #  @param self Указатель на объект.
-  #  @param alpha Уровень квантеля.
-  @abstractmethod
-  def quantile(self, alpha):
-    pass
 
   ## @var x
   #  Значение случайной величины.
